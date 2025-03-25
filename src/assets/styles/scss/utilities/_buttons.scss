@@ -1,0 +1,24 @@
+.pc-btn {
+    display: inline-block;
+    padding: var(--pc-spacing-sm) var(--pc-spacing-md);
+    font-size: var(--pc-font-size-md);
+    font-weight: 500;
+    border-radius: 4px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .pc-btn-primary {
+    background-color: var(--pc-color-primary);
+    color: white;
+  }
+  
+  .pc-btn-secondary {
+    background-color: var(--pc-color-secondary);
+    color: white;
+  }
+  
+  .pc-btn:hover {
+    opacity: 0.85;
+  }
+  

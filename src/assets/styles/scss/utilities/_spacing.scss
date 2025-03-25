@@ -1,0 +1,15 @@
+@import "breakpoints";
+
+$pc-spacing-values: (0, 4, 8, 12, 16, 24, 32, 40, 48, 64);
+
+@each $size in $pc-spacing-values {
+  .pc-p-#{$size} { padding: #{$size}px; }
+  .pc-m-#{$size} { margin: #{$size}px; }
+
+  @each $bp in (sm, md, lg, xl, 2xl) {
+    @include pc-screen($bp) {
+      .pc-#{$bp}\:p-#{$size} { padding: #{$size}px; }
+      .pc-#{$bp}\:m-#{$size} { margin: #{$size}px; }
+    }
+  }
+}

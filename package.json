@@ -1,0 +1,52 @@
+{
+  "name": "peercore-ui-kit",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.0.15",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-react": "^7.26.3",
+    "@chromatic-com/storybook": "^3.2.6",
+    "@storybook/addon-essentials": "^8.6.8",
+    "@storybook/addon-interactions": "^8.6.8",
+    "@storybook/addon-onboarding": "^8.6.8",
+    "@storybook/addon-webpack5-compiler-swc": "^3.0.0",
+    "@storybook/blocks": "^8.6.8",
+    "@storybook/jest": "^0.2.2",
+    "@storybook/react": "^8.6.8",
+    "@storybook/react-webpack5": "^8.6.8",
+    "@storybook/test": "^8.6.8",
+    "@storybook/testing-library": "^0.2.1",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@types/jest": "^29.5.14",
+    "@types/react": "^19.0.12",
+    "@types/react-dom": "^19.0.4",
+    "autoprefixer": "^10.4.21",
+    "babel-jest": "^29.7.0",
+    "chromatic": "^11.27.0",
+    "css-loader": "^7.1.2",
+    "jest": "^29.7.0",
+    "postcss": "^8.5.3",
+    "sass": "^1.86.0",
+    "sass-loader": "^16.0.5",
+    "storybook": "^8.6.8",
+    "style-loader": "^4.0.0",
+    "tailwindcss": "^4.0.15",
+    "ts-jest": "^29.3.0",
+    "typescript": "^5.8.2"
+  }
+}

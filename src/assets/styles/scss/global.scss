@@ -1,0 +1,34 @@
+:root {
+    /* Colors */
+    --pc-color-primary: #007bff;
+    --pc-color-secondary: #6c757d;
+    --pc-color-text: #333;
+    --pc-color-background: #f8f9fa;
+  
+    /* Dark Mode Colors */
+    --pc-color-text-dark: #ddd;
+    --pc-color-background-dark: #111;
+  
+    /* Fonts */
+    --pc-font-family: "Inter", sans-serif;
+    --pc-font-size-sm: 14px;
+    --pc-font-size-md: 16px;
+    --pc-font-size-lg: 18px;
+  }
+  
+
+/* Import Base */
+@import "base/reset";
+@import "base/variables";
+@import "base/breakpoints";
+
+/* Import Utilities */
+@import "utilities/grid";
+@import "utilities/flex";
+@import "utilities/spacing";
+@import "utilities/buttons";
+
+/* Import Components */
+@import "components/forms";
+@import "components/cards";
+@import "components/modals";

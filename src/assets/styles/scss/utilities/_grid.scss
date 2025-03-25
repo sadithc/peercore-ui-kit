@@ -1,0 +1,14 @@
+.pc-grid {
+    display: grid;
+    gap: var(--pc-spacing-md);
+  }
+  
+  .pc-grid-1 { grid-template-columns: 1fr; }
+  .pc-grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .pc-grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .pc-grid-4 { grid-template-columns: repeat(4, 1fr); }
+  
+  @media (max-width: var(--pc-screen-md)) {
+    .pc-grid-2, .pc-grid-3, .pc-grid-4 { grid-template-columns: 1fr; }
+  }
+  

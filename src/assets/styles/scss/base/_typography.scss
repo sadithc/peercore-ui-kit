@@ -1,0 +1,69 @@
+@import "variables";
+@import "breakpoints";
+
+/* Global Font Settings */
+body {
+  font-family: var(--pc-font-family);
+  font-size: var(--pc-font-size-md);
+  line-height: 1.6;
+  color: var(--pc-color-text);
+  background-color: var(--pc-color-background);
+}
+
+/* Headings */
+.pc-h1 { font-size: 2rem; font-weight: 700; }
+.pc-h2 { font-size: 1.75rem; font-weight: 600; }
+.pc-h3 { font-size: 1.5rem; font-weight: 600; }
+.pc-h4 { font-size: 1.25rem; font-weight: 500; }
+.pc-h5 { font-size: 1.125rem; font-weight: 500; }
+.pc-h6 { font-size: 1rem; font-weight: 500; }
+
+/* Responsive Typography */
+@include pc-screen(md) {
+  .pc-h1 { font-size: 2.5rem; }
+  .pc-h2 { font-size: 2rem; }
+  .pc-h3 { font-size: 1.75rem; }
+}
+
+@include pc-screen(lg) {
+  .pc-h1 { font-size: 3rem; }
+  .pc-h2 { font-size: 2.5rem; }
+  .pc-h3 { font-size: 2rem; }
+}
+
+/* Font Weight */
+.pc-font-light { font-weight: 300; }
+.pc-font-normal { font-weight: 400; }
+.pc-font-medium { font-weight: 500; }
+.pc-font-semibold { font-weight: 600; }
+.pc-font-bold { font-weight: 700; }
+
+/* Text Alignment */
+.pc-text-left { text-align: left; }
+.pc-text-center { text-align: center; }
+.pc-text-right { text-align: right; }
+
+/* Responsive Text Alignment */
+@include pc-screen(md) {
+  .pc-md\:text-center { text-align: center; }
+  .pc-md\:text-right { text-align: right; }
+}
+
+@include pc-screen(lg) {
+  .pc-lg\:text-center { text-align: center; }
+  .pc-lg\:text-right { text-align: right; }
+}
+
+/* Line Height */
+.pc-leading-none { line-height: 1; }
+.pc-leading-tight { line-height: 1.25; }
+.pc-leading-normal { line-height: 1.5; }
+.pc-leading-loose { line-height: 1.75; }
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  body {
+    color: var(--pc-color-text-dark);
+    background-color: var(--pc-color-background-dark);
+  }
+}
