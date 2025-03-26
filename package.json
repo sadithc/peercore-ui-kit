@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@iconify/react": "^5.2.0",
     "@tailwindcss/postcss": "^4.0.15",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
