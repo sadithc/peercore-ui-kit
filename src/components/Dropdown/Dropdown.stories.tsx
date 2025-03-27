@@ -1,11 +1,11 @@
 // src/components/Dropdown/dropdown.stories.tsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Meta, StoryFn } from '@storybook/react';
-import DropdownFilter from './index'; // Import the component from index.tsx
+import Dropdown from './index'; // Import the component from index.tsx
 
 export default {
-  title: 'Components/DropdownFilter',
-  component: DropdownFilter,
+  title: 'Components/Dropdown',
+  component: Dropdown,
 } as Meta;
 
 const Template: StoryFn = (args) => {
@@ -25,7 +25,7 @@ const Template: StoryFn = (args) => {
   ];
 
   return (
-    <DropdownFilter
+    <Dropdown
       {...args}
       selectedCountry={selectedCountry}
       onChange={(e) => setSelectedCountry(e)}
@@ -36,4 +36,7 @@ const Template: StoryFn = (args) => {
 };
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = { isFilterEnabled: true }; // Enable search by default
+
+export const NoFilter = Template.bind({});
+NoFilter.args = { isFilterEnabled: false }; // Disable search field

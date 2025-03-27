@@ -1,27 +1,24 @@
-import { Icon } from "@iconify/react";
-import React, { useState, useEffect, useRef } from "react";
+import { Icon } from '@iconify/react';
+import React, { useState, useEffect, useRef } from 'react';
 
 interface DropdownProps {
   options: { name: string; code: string }[];
   selectedCountry: { name: string; code: string } | null;
   onChange: (e: any) => void;
   placeholder: string;
+  isFilterEnabled?: boolean;
 }
 
-const DropdownFilter: React.FC<DropdownProps> = ({
-  options,
-  selectedCountry,
-  onChange,
-  placeholder,
-}) => {
+const Dropdown: React.FC<DropdownProps> = ({ options, selectedCountry, onChange, placeholder, isFilterEnabled = true }) => {
   const [filteredOptions, setFilteredOptions] = useState(options);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [dropUp, setDropUp] = useState(false); // State to track dropdown position
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setFilteredOptions(
-      searchTerm === ""
+      searchTerm === ''
         ? options
         : options.filter((option) =>
             option.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -29,22 +26,34 @@ const DropdownFilter: React.FC<DropdownProps> = ({
     );
   }, [searchTerm, options]);
 
-  // Detect clicks outside the dropdown
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsDropdownOpen(false);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  // Check available space and set dropdown position
+  useEffect(() => {
+    if (isDropdownOpen && dropdownRef.current) {
+      const rect = dropdownRef.current.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const spaceAbove = rect.top;
+
+      // If there's not enough space below but enough above, open dropdown upwards
+      if (spaceBelow < 200 && spaceAbove > 200) {
+        setDropUp(true);
+      } else {
+        setDropUp(false);
+      }
+    }
+  }, [isDropdownOpen]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -52,7 +61,7 @@ const DropdownFilter: React.FC<DropdownProps> = ({
 
   const handleSelect = (option: { name: string; code: string }) => {
     onChange(option);
-    setSearchTerm("");
+    setSearchTerm('');
     setIsDropdownOpen(false);
   };
 
@@ -61,97 +70,95 @@ const DropdownFilter: React.FC<DropdownProps> = ({
   };
 
   const clearSelection = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent dropdown from opening when clearing
+    e.stopPropagation();
     onChange(null);
   };
 
   return (
-    <div
-      className="dropdown-container"
-      style={{ width: "200px" }}
-      ref={dropdownRef}
-    >
-      {/* Dropdown header */}
+    <div className="dropdown-container" style={{ width: '100%', position: 'relative' }} ref={dropdownRef}>
       <div
         className="dropdown-header"
         onClick={toggleDropdown}
         style={{
-          padding: "8px",
-          border: "1px solid #ccc",
-          cursor: "pointer",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          position: "relative",
+          padding: '8px',
+          border: '1px solid #ccc',
+          cursor: 'pointer',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          position: 'relative',
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
+        <div style={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
           {selectedCountry ? selectedCountry.name : placeholder}
         </div>
 
-        {/* Show close icon only if an item is selected and field is clicked */}
-        {selectedCountry && isDropdownOpen && (
+        {selectedCountry && (
           <Icon
             icon="material-symbols:close-rounded"
             className="clear-icon"
             onClick={clearSelection}
-            style={{ cursor: "pointer", marginRight: "8px", fontSize: "18px" }}
+            style={{ cursor: 'pointer', marginRight: '8px', fontSize: '18px' }}
           />
         )}
 
-        <Icon
-          icon="mingcute:down-line"
-          className="dropdown-icon"
-          style={{ fontSize: "18px" }}
-        />
+        <Icon icon="mingcute:down-line" className="dropdown-icon" style={{ fontSize: '18px' }} />
       </div>
 
       {isDropdownOpen && (
-        <div>
-          <div style={{ position: "relative", width: "100%" }}>
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={handleSearchChange}
-              style={{
-                width: "100%",
-                padding: "8px 30px 8px 8px", // Extra right padding for the icon
-                marginBottom: "8px",
-                border: "1px solid #ccc",
-                borderRadius: "4px",
-                fontSize: "14px",
-              }}
-            />
-            <Icon
-              icon="material-symbols:search"
-              style={{
-                position: "absolute",
-                left: "10px", // Position the icon inside the input
-                top: "50%",
-                transform: "translateY(-50%)",
-                fontSize: "18px",
-                color: "#888",
-              }}
-            />
-          </div>
+        <div
+          className="dropdown-list"
+          style={{
+            position: 'absolute',
+            width: '100%',
+            maxHeight: '200px',
+            overflowY: 'auto',
+            background: 'white',
+            border: '1px solid #ccc',
+            zIndex: 1000,
+            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+            top: dropUp ? 'auto' : '100%',
+            bottom: dropUp ? '100%' : 'auto',
+          }}
+        >
+          {isFilterEnabled && (
+            <div style={{ position: 'relative', width: '100%', boxSizing: 'border-box' }}>
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchTerm}
+                onChange={handleSearchChange}
+                style={{
+                  width: '98%',
+                  padding: '8px',
+                  marginBottom: '8px',
+                  border: '1px solid #ccc',
+                }}
+              />
+              <Icon
+                icon="material-symbols:search"
+                style={{
+                  position: 'absolute',
+                  right: '10px',
+                  top: '45%',
+                  transform: 'translateY(-55%)',
+                  fontSize: '15px',
+                  color: '#888',
+                }}
+              />
+            </div>
+          )}
 
-          {/* Dropdown options */}
-          <div
-            className="dropdown-options"
-            style={{ maxHeight: "200px", overflowY: "auto" }}
-          >
+          <div className="dropdown-options">
             {filteredOptions.map((option) => (
               <div
                 key={option.code}
                 className="dropdown-item"
                 onClick={() => handleSelect(option)}
                 style={{
-                  padding: "8px",
-                  cursor: "pointer",
-                  backgroundColor:
-                    selectedCountry?.code === option.code
-                      ? "#e0e0e0"
-                      : "transparent",
+                  padding: '8px',
+                  cursor: 'pointer',
+                  backgroundColor: selectedCountry?.code === option.code ? '#e0e0e0' : 'transparent',
                 }}
               >
                 {option.name}
@@ -164,4 +171,4 @@ const DropdownFilter: React.FC<DropdownProps> = ({
   );
 };
 
-export default DropdownFilter;
+export default Dropdown;
