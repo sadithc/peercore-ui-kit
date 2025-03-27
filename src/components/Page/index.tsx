@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import DataTable from "../DataTable";
 import Column from "../DataTable/column";
 import "./style.scss";
+import Dropdown from "../Dropdown";
 
-export interface TestPageProps {
-
-}
+export interface TestPageProps { }
 
 const TestPage = ({ }: TestPageProps): React.ReactElement => {
+    const [selectedCountry1, setSelectedCountry1] = useState(null);
+    const [selectedCountry2, setSelectedCountry2] = useState(null);
 
     const [sizeOptions] = useState<{ label: string; value: "small" | "normal" | "large" }[]>([
         { label: 'Small', value: 'small' },
@@ -59,7 +60,7 @@ const TestPage = ({ }: TestPageProps): React.ReactElement => {
         { code: "P022", name: "Product 22", category: "Category B", quantity: 12, test: "name22", image: "product22.jpg", price: 160, rating: 4, inventoryStatus: "LOWSTOCK" },
         { code: "P023", name: "Product 23", category: "Category C", quantity: 14, test: "name23", image: "product23.jpg", price: 180, rating: 3, inventoryStatus: "INSTOCK" },
     ];
-    
+
     const columns = [
         { field: "code", header: "Code" },
         { field: "name", header: "Name" },
@@ -73,6 +74,19 @@ const TestPage = ({ }: TestPageProps): React.ReactElement => {
 
     ]
 
+    const countries = [
+        { name: "Australia", code: "AU" },
+        { name: "Brazil", code: "BR" },
+        { name: "China", code: "CN" },
+        { name: "Egypt", code: "EG" },
+        { name: "France", code: "FR" },
+        { name: "Germany", code: "DE" },
+        { name: "India", code: "IN" },
+        { name: "Japan", code: "JP" },
+        { name: "Spain", code: "ES" },
+        { name: "United States", code: "US" },
+    ];
+
     const header = (
         <div>
             <span>header</span>
@@ -84,99 +98,127 @@ const TestPage = ({ }: TestPageProps): React.ReactElement => {
 
 
     return (
-        <div className="card">
-            <div className="margin">
-                <span className="margin">Basic Table</span>
-                <div className="margin-b">
-                    <DataTable products={products} columns={columns} />
-                </div>
+        <>
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "20px",
+                    width: "100%",
+                }}
+            >
+                <h3>Dropdown with Search</h3>
+                <Dropdown
+                    selectedCountry={selectedCountry1}
+                    onChange={setSelectedCountry1}
+                    options={countries}
+                    placeholder="Select a Country"
+                    isFilterEnabled={true} // Search enabled
+                />
+
+                <h3>Dropdown without Search</h3>
+                <Dropdown
+                    selectedCountry={selectedCountry2}
+                    onChange={setSelectedCountry2}
+                    options={countries}
+                    placeholder="Select a Country"
+                    isFilterEnabled={false} // Search disabled
+                />
             </div>
 
-            <div className="margin">
-                <span >Dynamic Columns Table</span>
-                <div className="margin-b">
-                    <DataTable products={products}>
-                        {columns.map((col) => (
-                            <Column key={col.field} field={col.field} header={col.header} body={col.body} />
-                        ))}
-                    </DataTable>
-
-                </div>
-            </div>
-
-            <div className="margin">
-                <span className="margin">Template Table</span>
-                <div className="margin-b">
-                    <DataTable products={products} header={header} footer={footer}>
-                        <Column field="code" header="Code"></Column>
-                        <Column field="name" header="Name"></Column>
-                        <Column field="category" header="Category"></Column>
-                        <Column field="quantity" header="Quantity"></Column>
-                        <Column field="test" header="Test"></Column>
-                        <Column field="image" header="Image" body={(product: any) => <img src={`https://example.com/images/${product.image}`} alt={product.name} className="w-6rem" />} />
-                        <Column field="price" header="Price" body={(product: any) => `$${product.price.toFixed(2)}`} />
-                        <Column field="rating" header="Reviews" body={(product: any) => <div>{renderStars(product.rating)}</div>} />
-                        <Column field="inventoryStatus" header="Status" body={(product: any) => <span className={`status ${product.inventoryStatus.toLowerCase()}`}>{product.inventoryStatus}</span>} />
-                    </DataTable>
-                </div>
-            </div>
-
-            <div className="margin">
-                <span className="margin"> Size Table</span>
-                <div>
-                    <div className="flex justify-content-center mb-4">
-                        <select value={size} onChange={(e) => setSize(e.target.value as "small" | "normal" | "large")}>
-                            {sizeOptions.map((option) => (
-                                <option key={option.value} value={option.value}>
-                                    {option.label}
-                                </option>
-                            ))}
-                        </select>
+            <div className="card">
+                <div className="margin">
+                    <span className="margin">Basic Table</span>
+                    <div className="margin-b">
+                        <DataTable products={products} columns={columns} />
                     </div>
                 </div>
-                <div className="margin-b">
-                    <DataTable products={products} size={size}>
-                        {columns.map((col) => (
-                            <Column key={col.field} field={col.field} header={col.header} body={col.body} />
-                        ))}
-                    </DataTable>
+
+                <div className="margin">
+                    <span >Dynamic Columns Table</span>
+                    <div className="margin-b">
+                        <DataTable products={products}>
+                            {columns.map((col) => (
+                                <Column key={col.field} field={col.field} header={col.header} body={col.body} />
+                            ))}
+                        </DataTable>
+
+                    </div>
+                </div>
+
+                <div className="margin">
+                    <span className="margin">Template Table</span>
+                    <div className="margin-b">
+                        <DataTable products={products} header={header} footer={footer}>
+                            <Column field="code" header="Code"></Column>
+                            <Column field="name" header="Name"></Column>
+                            <Column field="category" header="Category"></Column>
+                            <Column field="quantity" header="Quantity"></Column>
+                            <Column field="test" header="Test"></Column>
+                            <Column field="image" header="Image" body={(product: any) => <img src={`https://example.com/images/${product.image}`} alt={product.name} className="w-6rem" />} />
+                            <Column field="price" header="Price" body={(product: any) => `$${product.price.toFixed(2)}`} />
+                            <Column field="rating" header="Reviews" body={(product: any) => <div>{renderStars(product.rating)}</div>} />
+                            <Column field="inventoryStatus" header="Status" body={(product: any) => <span className={`status ${product.inventoryStatus.toLowerCase()}`}>{product.inventoryStatus}</span>} />
+                        </DataTable>
+                    </div>
+                </div>
+
+                <div className="margin">
+                    <span className="margin"> Size Table</span>
+                    <div>
+                        <div className="flex justify-content-center mb-4">
+                            <select value={size} onChange={(e) => setSize(e.target.value as "small" | "normal" | "large")}>
+                                {sizeOptions.map((option) => (
+                                    <option key={option.value} value={option.value}>
+                                        {option.label}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                    <div className="margin-b">
+                        <DataTable products={products} size={size}>
+                            {columns.map((col) => (
+                                <Column key={col.field} field={col.field} header={col.header} body={col.body} />
+                            ))}
+                        </DataTable>
+                    </div>
+                </div>
+
+                <div className="margin">
+                    <span className="margin">Grid Lines Table 5</span>
+                    <div className="margin-b">
+                        <DataTable products={products} header={header} footer={footer} showGridlines >
+                            {columns.map((col) => (
+                                <Column key={col.field} field={col.field} header={col.header} body={col.body} />
+                            ))}
+                        </DataTable>
+                    </div>
+                </div>
+
+                <div className="margin">
+                    <span className="margin">Striped Rows Table 6</span>
+                    <div className="margin-b">
+                        <DataTable products={products} header={header} footer={footer} stripedRows >
+                            {columns.map((col) => (
+                                <Column key={col.field} field={col.field} header={col.header} body={col.body} />
+                            ))}
+                        </DataTable>
+                    </div>
+                </div>
+
+                <div className="margin">
+                    <span className="margin">Paginator Table 7</span>
+                    <div className="margin-b">
+                        <DataTable products={products} paginator rowsPerPageOptions={[5, 10, 25, 50]}  >
+                            {columns.map((col) => (
+                                <Column key={col.field} field={col.field} header={col.header} body={col.body} />
+                            ))}
+                        </DataTable>
+                    </div>
                 </div>
             </div>
-
-            <div className="margin">
-                <span className="margin">Grid Lines Table 5</span>
-                <div className="margin-b">
-                    <DataTable products={products} header={header} footer={footer}  showGridlines >
-                        {columns.map((col) => (
-                            <Column key={col.field} field={col.field} header={col.header} body={col.body} />
-                        ))}
-                    </DataTable>
-                </div>
-            </div>
-
-            <div className="margin">
-                <span className="margin">Striped Rows Table 6</span>
-                <div className="margin-b">
-                    <DataTable products={products} header={header} footer={footer}  stripedRows >
-                        {columns.map((col) => (
-                            <Column key={col.field} field={col.field} header={col.header} body={col.body} />
-                        ))}
-                    </DataTable>
-                </div>
-            </div>
-
-            <div className="margin">
-                <span className="margin">Paginator Table 7</span>
-                <div className="margin-b">
-                    <DataTable products={products} paginator rowsPerPageOptions={[5, 10, 25, 50]}  >
-                        {columns.map((col) => (
-                            <Column key={col.field} field={col.field} header={col.header} body={col.body} />
-                        ))}
-                    </DataTable>
-                </div>
-            </div>
-
-        </div>
+        </>
     );
 };
 
