@@ -1,9 +1,43 @@
 .margin {
-    margin-top: 25px;
-    margin-bottom: 25px;
+  margin-top: 25px;
+  margin-bottom: 25px;
 
 }
 
 .margin-b {
-    margin-top: 5px;
+  margin-top: 5px;
+}
+
+.status {
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+.status.instocks {
+  background-color: #28a745;
+  color: white;
+}
+
+.status.lowstock {
+  background-color: #ffc107;
+  color: white;
+}
+
+.status.outofstock {
+  background-color: #dc3545;
+  color: white;
+}
+
+.star-filled {
+  color: gold;
+  /* Filled stars will be gold */
+  font-size: 1.2rem;
+  /* Adjust size if necessary */
+}
+
+.star-empty {
+  color: gray;
+  /* Empty stars will be gray */
+  font-size: 1.2rem;
+  /* Adjust size if necessary */
 }

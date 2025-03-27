@@ -3,20 +3,65 @@
 // }
 
 .header {
-    background-color: lightgray;
-    max-width: auto;
-    min-width: 200px;
-    text-align: left;
-    padding: 5px;
-    border-bottom: 1px solid black;
+  border: 0px;
+  background-color: rgb(248, 244, 244);
+  max-width: auto;
+  min-width: 200px;
+  text-align: left;
+  padding: 5px;
+ 
+  border-bottom: 1px solid black;
 }
 
 .row {
-    text-align: left;
+
+  text-align: left;
 
 }
 
 .box {
-    border-bottom: 1px solid black;
-    padding: 5px;
+  border: 0px;
+  border-bottom: 1px solid black;
+  padding: 5px;
 }
+
+.table {
+  width: 100%;
+}
+
+.table.small {
+  font-size: 12px;
+  padding: 5px;
+}
+
+.table.normal {
+  font-size: 14px;
+  padding: 10px;
+}
+
+.table.large {
+  font-size: 16px;
+  padding: 15px;
+}
+
+th,
+td {
+  padding: 8px;
+}
+
+.show-gridlines{
+  border: 1px solid rgb(63, 62, 62);
+}
+
+  .striped {
+    background-color: lightgray; 
+     /* Light gray background for striped rows */
+  }
+
+  .paginator{
+    margin-top: 10px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 5px;
+  }

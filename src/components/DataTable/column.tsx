@@ -5,9 +5,10 @@ import "./style.scss";
 interface ColumnProps {
   field?: string;
   header?: string;
+  body?: any;
 }
 
-const Column = ({ field, header }: ColumnProps): React.ReactElement => {
+const Column = ({ field, header, body }: ColumnProps): React.ReactElement => {
   return (
     <th>{header}</th>
   );
