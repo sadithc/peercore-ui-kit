@@ -4,6 +4,7 @@ import Column from "../DataTable/column";
 import "./style.scss";
 import Dropdown from "../Dropdown";
 import { imageBodyTemplate, inventoryStatusBodyTemplate, priceBodyTemplate, ratingBodyTemplate } from "../DataTable/ProductColumns";
+import Button from "../Button";
 
 export interface TestPageProps { }
 
@@ -70,11 +71,16 @@ const TestPage = ({ }: TestPageProps): React.ReactElement => {
     )
 
     const footer = `In total there are ${products ? products.length : 0} products.`;
-
+ const handlebutton = () => {
+     console.log("Button clicked");
+ }
 
     return (
         <>
-            <div
+        <div>
+            <Button label="Test" icon="icon-park-solid:correct"  iconPos="right" className=" button"   onClick={() => handlebutton()}  />
+        </div>
+            {/* <div
                 style={{
                     display: "flex",
                     flexDirection: "column",
@@ -146,7 +152,7 @@ const TestPage = ({ }: TestPageProps): React.ReactElement => {
                 </div>
 
 
-            </div>
+            </div> */}
         </>
     );
 };
