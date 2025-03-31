@@ -1,0 +1,90 @@
+/* Modal.css */
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  &.scrollable {
+    overflow: auto; // Allows scrolling when isOutsideScrollable is true
+  }
+
+  &.non-scrollable {
+    overflow: hidden; // Prevent scrolling when isOutsideScrollable is false
+  }
+}
+
+.modal-close-overlayer {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.modal-container {
+  position: relative;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 10px;
+  z-index: 1;
+  // overflow: auto;
+}
+
+.mouse {
+  cursor: grab;
+}
+
+.close-btn {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.modal-close {
+  border: none;
+  background-color: transparent;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.modal-header {
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modalheader-div {
+  font-size: 36px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+
+.modal-body {
+  width: 100%;
+  height: auto;
+  position: relative;
+  display: flex;
+  overflow: auto;
+}
+
+.modal-footer {
+  margin-top: 20px;
+  position: relative;
+  top: 0;
+  bottom: 1;
+  padding-bottom: 10px;
+
+}
+
+.modal-footer-div {
+  display: flex;
+  justify-content: end;
+}

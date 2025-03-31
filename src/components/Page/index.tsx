@@ -5,12 +5,25 @@ import "./style.scss";
 import Dropdown from "../Dropdown";
 import { imageBodyTemplate, inventoryStatusBodyTemplate, priceBodyTemplate, ratingBodyTemplate } from "../DataTable/ProductColumns";
 import Button from "../Button";
+import Modal from "../Modal";
+import ModalHeader from "../Modal/Header";
+import ModalBody from "../Modal/Body";
+import ModalFooter from "../Modal/Footer";
+// import ModalHeader from "../Modal/Header";
+// import ModalBody from "../Modal/Body";
+// import ModalFooter from "../Modal/Footer";
 
 export interface TestPageProps { }
 
 const TestPage = ({ }: TestPageProps): React.ReactElement => {
     const [selectedCountry1, setSelectedCountry1] = useState(null);
-    const [selectedCountry2, setSelectedCountry2] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    // const [isOpen, setIslOpen] = useState(false);
+
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    //    console.log(isModalOpen)
+    };
 
     const [sizeOptions] = useState<{ label: string; value: "small" | "normal" | "large" }[]>([
         { label: 'Small', value: 'small' },
@@ -25,7 +38,7 @@ const TestPage = ({ }: TestPageProps): React.ReactElement => {
     useEffect(() => {
         const fetchProducts = async (sortField: string, sortOrder: number) => {
             try {
-                const response = await fetch(`https://api.openbrewerydb.org/v1/breweries?by_state=california&sort=${sortField}:${sortOrder === 1 ? 'asc' : 'desc' }&per_page`);
+                const response = await fetch(`https://api.openbrewerydb.org/v1/breweries?by_state=california&sort=${sortField}:${sortOrder === 1 ? 'asc' : 'desc'}&per_page`);
                 if (!response.ok) {
                     throw new Error("Failed to fetch products");
                 }
@@ -71,15 +84,40 @@ const TestPage = ({ }: TestPageProps): React.ReactElement => {
     )
 
     const footer = `In total there are ${products ? products.length : 0} products.`;
- const handlebutton = () => {
-     console.log("Button clicked");
- }
 
-    return (
+      return (
         <>
-        <div>
-            <Button label="Test" icon="icon-park-solid:correct"  iconPos="right" className=" button"   onClick={() => handlebutton()}  />
-        </div>
+            <div>
+                <Button label="Modal Open"
+                    // icon="icon-park-solid:correct"
+                    iconPos="right" className=" button" onClick={handleOpenModal} />
+            </div>
+           
+            
+                <Modal isOpen={isModalOpen}>
+
+                    <ModalHeader > <span>header</span></ModalHeader>
+
+                    <ModalBody><span>
+                        <div>
+                            <h3>Product List</h3>
+                            <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit recusandae, veritatis ratione veniam aliquam perferendis molestiae provident ut incidunt officiis, cupiditate eveniet quas tempore quia modi deleniti aperiam sed nobis.</span>
+                            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae nesciunt assumenda deleniti itaque quasi asperiores placeat incidunt! Nobis adipisci accusantium, praesentium iusto suscipit necessitatibus voluptates ut explicabo amet iure molestias?</span>
+                            <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit, neque, animi nobis aspernatur voluptas pariatur consectetur error earum vero at unde accusantium praesentium ab est. Id quidem quam a laudantium.</span>
+                            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non quam vel reiciendis et illum accusamus pariatur magni ipsa voluptatum nostrum. Ea alias praesentium pariatur temporibus quia beatae sed saepe assumenda!</span>
+                        </div>
+                    </span></ModalBody>
+
+                    <ModalFooter>
+                        <div>
+                            <button>Cancel</button>
+                            <button>Confirm</button>
+                        </div>
+                    </ModalFooter>
+
+                </Modal >
+
+
             {/* <div
                 style={{
                     display: "flex",
